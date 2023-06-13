@@ -30,11 +30,13 @@ class _HomeViewState extends ConsumerState<_HomeView> {
   void initState() {
     super.initState();
     ref.read(nowPlayingMoviesProvider.notifier).loadNextPage();
+    ref.read(popularMoviesProvider.notifier).loadNextPage();
   }
 
   @override
   Widget build(BuildContext context) {
     final nowPlayingMovies = ref.watch(nowPlayingMoviesProvider);
+    final popularMovies = ref.watch(popularMoviesProvider);
     final slideShowMovies = ref.watch(moviesSlideshowProvider);
 
     return nowPlayingMovies.isEmpty
@@ -55,7 +57,7 @@ class _HomeViewState extends ConsumerState<_HomeView> {
                         MoviesSlideShow(movies: slideShowMovies),
                         MoviesHorizontalListView(
                           movies: nowPlayingMovies,
-                          title: 'Now in theaters',
+                          title: 'Now playing',
                           subtitle: 'What to watch',
                           loadNextPage: () => ref
                               .read(nowPlayingMoviesProvider.notifier)
@@ -69,15 +71,15 @@ class _HomeViewState extends ConsumerState<_HomeView> {
                               .loadNextPage(),
                         ),
                         MoviesHorizontalListView(
-                          movies: nowPlayingMovies,
-                          title: 'Favorites',
+                          movies: popularMovies,
+                          title: 'Popular',
                           loadNextPage: () => ref
-                              .read(nowPlayingMoviesProvider.notifier)
+                              .read(popularMoviesProvider.notifier)
                               .loadNextPage(),
                         ),
                         MoviesHorizontalListView(
                           movies: nowPlayingMovies,
-                          title: 'Top rates',
+                          title: 'Top rated',
                           loadNextPage: () => ref
                               .read(nowPlayingMoviesProvider.notifier)
                               .loadNextPage(),
