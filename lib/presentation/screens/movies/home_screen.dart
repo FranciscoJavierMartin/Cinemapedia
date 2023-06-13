@@ -32,6 +32,7 @@ class _HomeViewState extends ConsumerState<_HomeView> {
     ref.read(nowPlayingMoviesProvider.notifier).loadNextPage();
     ref.read(popularMoviesProvider.notifier).loadNextPage();
     ref.read(topRatesMoviesProvider.notifier).loadNextPage();
+    ref.read(upcomingMoviesProvider.notifier).loadNextPage();
   }
 
   @override
@@ -39,6 +40,7 @@ class _HomeViewState extends ConsumerState<_HomeView> {
     final nowPlayingMovies = ref.watch(nowPlayingMoviesProvider);
     final popularMovies = ref.watch(popularMoviesProvider);
     final topRatesMovies = ref.watch(topRatesMoviesProvider);
+    final upcomingMovies = ref.watch(upcomingMoviesProvider);
     final slideShowMovies = ref.watch(moviesSlideshowProvider);
 
     return nowPlayingMovies.isEmpty
@@ -66,10 +68,10 @@ class _HomeViewState extends ConsumerState<_HomeView> {
                               .loadNextPage(),
                         ),
                         MoviesHorizontalListView(
-                          movies: nowPlayingMovies,
+                          movies: upcomingMovies,
                           title: 'Upcoming',
                           loadNextPage: () => ref
-                              .read(nowPlayingMoviesProvider.notifier)
+                              .read(upcomingMoviesProvider.notifier)
                               .loadNextPage(),
                         ),
                         MoviesHorizontalListView(
