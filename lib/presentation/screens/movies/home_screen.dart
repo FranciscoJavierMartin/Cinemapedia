@@ -31,12 +31,14 @@ class _HomeViewState extends ConsumerState<_HomeView> {
     super.initState();
     ref.read(nowPlayingMoviesProvider.notifier).loadNextPage();
     ref.read(popularMoviesProvider.notifier).loadNextPage();
+    ref.read(topRatesMoviesProvider.notifier).loadNextPage();
   }
 
   @override
   Widget build(BuildContext context) {
     final nowPlayingMovies = ref.watch(nowPlayingMoviesProvider);
     final popularMovies = ref.watch(popularMoviesProvider);
+    final topRatesMovies = ref.watch(topRatesMoviesProvider);
     final slideShowMovies = ref.watch(moviesSlideshowProvider);
 
     return nowPlayingMovies.isEmpty
@@ -78,10 +80,10 @@ class _HomeViewState extends ConsumerState<_HomeView> {
                               .loadNextPage(),
                         ),
                         MoviesHorizontalListView(
-                          movies: nowPlayingMovies,
+                          movies: topRatesMovies,
                           title: 'Top rated',
                           loadNextPage: () => ref
-                              .read(nowPlayingMoviesProvider.notifier)
+                              .read(topRatesMoviesProvider.notifier)
                               .loadNextPage(),
                         ),
                         const SizedBox(height: 10),
