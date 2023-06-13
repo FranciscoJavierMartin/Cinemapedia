@@ -29,19 +29,21 @@ class _MoviesHorizontalListViewState extends State<MoviesHorizontalListView> {
   void initState() {
     super.initState();
 
-    scrollController.addListener(() {
-      if (widget.loadNextPage != null) {
+    if (widget.loadNextPage != null) {
+      scrollController.addListener(() {
         if ((scrollController.position.pixels + 200) >=
             scrollController.position.maxScrollExtent) {
-          print('Load next movies');
+          widget.loadNextPage!();
         }
-      }
-    });
+      });
+    }
   }
 
   @override
   void dispose() {
-    scrollController.dispose();
+    if (widget.loadNextPage != null) {
+      scrollController.dispose();
+    }
     super.dispose();
   }
 
