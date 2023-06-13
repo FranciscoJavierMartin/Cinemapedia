@@ -39,16 +39,55 @@ class _HomeViewState extends ConsumerState<_HomeView> {
 
     return nowPlayingMovies.isEmpty
         ? const Center(child: CircularProgressIndicator())
-        : Column(
-            children: [
-              const CustomAppBar(),
-              MoviesSlideShow(movies: slideShowMovies),
-              MoviesHorizontalListView(
-                movies: nowPlayingMovies,
-                title: 'Now in theaters',
-                subtitle: 'What to watch',
-                loadNextPage: () =>
-                    ref.read(nowPlayingMoviesProvider.notifier).loadNextPage(),
+        : CustomScrollView(
+            slivers: [
+              const SliverAppBar(
+                floating: true,
+                flexibleSpace: FlexibleSpaceBar(
+                  title: CustomAppBar(),
+                ),
+              ),
+              SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  (context, index) {
+                    return Column(
+                      children: [
+                        MoviesSlideShow(movies: slideShowMovies),
+                        MoviesHorizontalListView(
+                          movies: nowPlayingMovies,
+                          title: 'Now in theaters',
+                          subtitle: 'What to watch',
+                          loadNextPage: () => ref
+                              .read(nowPlayingMoviesProvider.notifier)
+                              .loadNextPage(),
+                        ),
+                        MoviesHorizontalListView(
+                          movies: nowPlayingMovies,
+                          title: 'Upcoming',
+                          loadNextPage: () => ref
+                              .read(nowPlayingMoviesProvider.notifier)
+                              .loadNextPage(),
+                        ),
+                        MoviesHorizontalListView(
+                          movies: nowPlayingMovies,
+                          title: 'Favorites',
+                          loadNextPage: () => ref
+                              .read(nowPlayingMoviesProvider.notifier)
+                              .loadNextPage(),
+                        ),
+                        MoviesHorizontalListView(
+                          movies: nowPlayingMovies,
+                          title: 'Top rates',
+                          loadNextPage: () => ref
+                              .read(nowPlayingMoviesProvider.notifier)
+                              .loadNextPage(),
+                        ),
+                        const SizedBox(height: 10),
+                      ],
+                    );
+                  },
+                  childCount: 1,
+                ),
               ),
             ],
           );
