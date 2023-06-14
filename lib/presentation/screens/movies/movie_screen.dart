@@ -34,7 +34,11 @@ class MovieScreenState extends ConsumerState<MovieScreen> {
               physics: const ClampingScrollPhysics(),
               slivers: [
                 _CustomSliverAppBar(movie: movie),
-                SliverList(delegate: SliverChildBuilderDelegate()),
+                SliverList(
+                    delegate: SliverChildBuilderDelegate(
+                  (context, index) => _MovieDetails(movie: movie),
+                  childCount: 1,
+                )),
               ],
             ),
           );
@@ -91,6 +95,66 @@ class _CustomSliverAppBar extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class _MovieDetails extends StatelessWidget {
+  final Movie movie;
+
+  const _MovieDetails({required this.movie});
+
+  @override
+  Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
+    final TextTheme textStyles = Theme.of(context).textTheme;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(8),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: Image.network(
+                  movie.posterPath,
+                  width: size.width * 0.3,
+                ),
+              ),
+              const SizedBox(width: 10),
+              SizedBox(
+                width: (size.width - 40) * 0.7,
+                child: Column(
+                  children: [
+                    Text(
+                      movie.title,
+                      style: textStyles.titleLarge,
+                    ),
+                    Text(movie.overview),
+                  ],
+                ),
+              )
+            ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8),
+          child: Wrap(children: [
+            ...movie.genreIds.map((genre) => Container(
+                  margin: const EdgeInsets.only(right: 10),
+                  child: Chip(
+                    label: Text(genre),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20)),
+                  ),
+                ))
+          ]),
+        ),
+        const SizedBox(height: 100),
+      ],
     );
   }
 }
