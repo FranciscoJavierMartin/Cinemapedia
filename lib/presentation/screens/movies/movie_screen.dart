@@ -19,6 +19,7 @@ class MovieScreenState extends ConsumerState<MovieScreen> {
   void initState() {
     super.initState();
     ref.read(movieInfoProvider.notifier).loadMovie(widget.movieId);
+    ref.read(actorsByMovieProvider.notifier).loadActors(widget.movieId);
   }
 
   @override
@@ -153,8 +154,28 @@ class _MovieDetails extends StatelessWidget {
                 ))
           ]),
         ),
+        _ActorsByMovie(movieId: movie.id.toString()),
         const SizedBox(height: 100),
       ],
     );
+  }
+}
+
+class _ActorsByMovie extends ConsumerWidget {
+  final String movieId;
+
+  const _ActorsByMovie({required this.movieId});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final actorsByMovie = ref.watch(actorsByMovieProvider);
+
+    return actorsByMovie[movieId] == null
+        ? const Center(
+            child: CircularProgressIndicator(
+              strokeWidth: 2,
+            ),
+          )
+        : Text('${actorsByMovie[movieId]?.length}');
   }
 }
