@@ -69,7 +69,12 @@ class _CustomSliverAppBar extends StatelessWidget {
         background: Stack(
           children: [
             SizedBox.expand(
-              child: Image.network(movie.posterPath, fit: BoxFit.cover),
+              child: Image.network(
+                movie.posterPath,
+                fit: BoxFit.cover,
+                loadingBuilder: (context, child, loadingProgress) =>
+                    loadingProgress != null ? const SizedBox() : child,
+              ),
             ),
             const SizedBox.expand(
               child: DecoratedBox(
