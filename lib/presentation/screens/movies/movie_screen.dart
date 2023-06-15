@@ -1,3 +1,4 @@
+import 'package:cinemapedia/domain/entities/actor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:cinemapedia/presentation/providers/providers.dart';
@@ -176,6 +177,46 @@ class _ActorsByMovie extends ConsumerWidget {
               strokeWidth: 2,
             ),
           )
-        : Text('${actorsByMovie[movieId]?.length}');
+        : SizedBox(
+            height: 300,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: actorsByMovie[movieId]!.length,
+              itemBuilder: (context, index) {
+                final Actor actor = actorsByMovie[movieId]![index];
+
+                return Container(
+                  padding: const EdgeInsets.all(8),
+                  width: 135,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: Image.network(
+                          actor.profilePath,
+                          height: 180,
+                          width: 135,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Text(
+                        actor.name,
+                        maxLines: 2,
+                      ),
+                      Text(actor.character ?? '',
+                          maxLines: 2,
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              overflow: TextOverflow.ellipsis)),
+                    ],
+                  ),
+                );
+              },
+            ),
+          );
   }
 }
