@@ -1,10 +1,10 @@
+import 'package:dio/dio.dart';
 import 'package:cinemapedia/config/constants/environment.dart';
 import 'package:cinemapedia/domain/datasources/movies_datasource.dart';
 import 'package:cinemapedia/domain/entities/movie.dart';
 import 'package:cinemapedia/infrastructure/mappers/movie_mapper.dart';
 import 'package:cinemapedia/infrastructure/models/themoviedb/movie_details.dart';
 import 'package:cinemapedia/infrastructure/models/themoviedb/themoviedb_response.dart';
-import 'package:dio/dio.dart';
 
 class TheMovieDBDatasource extends MoviesDatasource {
   final dio = Dio(BaseOptions(

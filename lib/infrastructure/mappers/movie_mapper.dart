@@ -17,7 +17,7 @@ class MovieMapper {
         posterPath: theMovieDB.posterPath != ''
             ? 'https://image.tmdb.org/t/p/w500${theMovieDB.posterPath}'
             : '',
-        releaseDate: theMovieDB.releaseDate,
+        releaseDate: theMovieDB.releaseDate ?? DateTime.now(),
         title: theMovieDB.title,
         video: theMovieDB.video,
         voteAverage: theMovieDB.voteAverage,
@@ -38,7 +38,7 @@ class MovieMapper {
         posterPath: theMovieDB.posterPath != ''
             ? 'https://image.tmdb.org/t/p/w500${theMovieDB.posterPath}'
             : '',
-        releaseDate: theMovieDB.releaseDate,
+        releaseDate: theMovieDB.releaseDate ?? DateTime.now(),
         title: theMovieDB.title,
         video: theMovieDB.video,
         voteAverage: theMovieDB.voteAverage,
