@@ -8,13 +8,17 @@ typedef SearchMoviesCallback = Future<List<Movie>> Function(String query);
 
 class SearchMovieDelegate extends SearchDelegate<Movie?> {
   final SearchMoviesCallback searchMovies;
+  List<Movie> initialMovies;
   StreamController<List<Movie>> debouncedMovies = StreamController.broadcast();
   Timer? _debounceTimer;
 
   @override
   String get searchFieldLabel => 'Search movie';
 
-  SearchMovieDelegate({required this.searchMovies});
+  SearchMovieDelegate({
+    required this.searchMovies,
+    required this.initialMovies,
+  });
 
   @override
   List<Widget>? buildActions(BuildContext context) {
@@ -42,15 +46,37 @@ class SearchMovieDelegate extends SearchDelegate<Movie?> {
 
   @override
   Widget buildResults(BuildContext context) {
-    return const Text('buildResults');
+    return _buildResultsAndSuggestions();
   }
 
   @override
   Widget buildSuggestions(BuildContext context) {
     _onQueryChanged(query);
+    return _buildResultsAndSuggestions();
+  }
 
+  void _onQueryChanged(String query) {
+    if (_debounceTimer?.isActive ?? false) {
+      _debounceTimer!.cancel();
+    }
+
+    _debounceTimer = Timer(const Duration(milliseconds: 500), () async {
+      final List<Movie> movies = await searchMovies(query);
+      if (!debouncedMovies.isClosed) {
+        debouncedMovies.add(movies);
+        initialMovies = movies;
+      }
+    });
+  }
+
+  void clearStreams() {
+    debouncedMovies.close();
+  }
+
+  Widget _buildResultsAndSuggestions() {
     return StreamBuilder(
       stream: debouncedMovies.stream,
+      initialData: initialMovies,
       builder: (context, snapshot) {
         final movies = snapshot.data ?? [];
 
@@ -66,29 +92,6 @@ class SearchMovieDelegate extends SearchDelegate<Movie?> {
         );
       },
     );
-  }
-
-  void _onQueryChanged(String query) {
-    if (_debounceTimer?.isActive ?? false) {
-      _debounceTimer!.cancel();
-    }
-
-    _debounceTimer = Timer(const Duration(milliseconds: 500), () async {
-      if (query.isNotEmpty) {
-        final List<Movie> movies = await searchMovies(query);
-        if (!debouncedMovies.isClosed) {
-          debouncedMovies.add(movies);
-        }
-      } else {
-        if (!debouncedMovies.isClosed) {
-          debouncedMovies.add([]);
-        }
-      }
-    });
-  }
-
-  void clearStreams() {
-    debouncedMovies.close();
   }
 }
 
