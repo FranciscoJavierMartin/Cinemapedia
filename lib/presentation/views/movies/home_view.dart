@@ -11,7 +11,8 @@ class HomeView extends ConsumerStatefulWidget {
   HomeViewState createState() => HomeViewState();
 }
 
-class HomeViewState extends ConsumerState<HomeView> {
+class HomeViewState extends ConsumerState<HomeView>
+    with AutomaticKeepAliveClientMixin {
   @override
   void initState() {
     super.initState();
@@ -22,7 +23,11 @@ class HomeViewState extends ConsumerState<HomeView> {
   }
 
   @override
+  bool get wantKeepAlive => true;
+
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
     Widget res;
     final initialLoading = ref.watch<bool>(initialLoadingprovider);
 
@@ -45,6 +50,7 @@ class HomeViewState extends ConsumerState<HomeView> {
           ),
           SliverList(
             delegate: SliverChildBuilderDelegate(
+              childCount: 1,
               (context, index) {
                 return Column(
                   children: [
@@ -82,7 +88,6 @@ class HomeViewState extends ConsumerState<HomeView> {
                   ],
                 );
               },
-              childCount: 1,
             ),
           ),
         ],
