@@ -14,6 +14,31 @@ class MovieMasonry extends StatefulWidget {
 }
 
 class _MovieMasonryState extends State<MovieMasonry> {
+  final ScrollController scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+
+    if (widget.loadNextPage != null) {
+      scrollController.addListener(() {
+        if ((scrollController.position.pixels + 100) >=
+            scrollController.position.maxScrollExtent) {
+          widget.loadNextPage!();
+        }
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    if (widget.loadNextPage != null) {
+      scrollController.dispose();
+    }
+
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -22,6 +47,7 @@ class _MovieMasonryState extends State<MovieMasonry> {
         crossAxisCount: 3,
         mainAxisSpacing: 10,
         crossAxisSpacing: 10,
+        controller: scrollController,
         itemCount: widget.movies.length,
         itemBuilder: (context, index) => index == 1
             ? Column(
