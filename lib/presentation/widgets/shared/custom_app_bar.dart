@@ -10,8 +10,10 @@ class CustomAppBar extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final colors = Theme.of(context).colorScheme;
-    final titleStyle = Theme.of(context).textTheme.titleMedium;
+    final ColorScheme colors = Theme.of(context).colorScheme;
+    final TextStyle? titleStyle = Theme.of(context).textTheme.titleMedium;
+    final bool isDarkMode =
+        ref.watch(themeNotifierProvider.notifier).isDarkMode;
 
     return SafeArea(
       bottom: false,
@@ -47,6 +49,16 @@ class CustomAppBar extends ConsumerWidget {
                     }
                   },
                 );
+              },
+            ),
+            IconButton(
+              icon: Icon(
+                isDarkMode
+                    ? Icons.light_mode_outlined
+                    : Icons.dark_mode_outlined,
+              ),
+              onPressed: () {
+                ref.read(themeNotifierProvider.notifier).toggleDarkMode();
               },
             )
           ]),
