@@ -2,7 +2,6 @@
 
 A new Flutter project.
 
-- Toggle dark/light mode
 - Movies recommendations
 - Actor page
 - New loader
