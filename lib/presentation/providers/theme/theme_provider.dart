@@ -5,12 +5,9 @@ final themeNotifierProvider =
     StateNotifierProvider<ThemeNotifier, AppTheme>((ref) => ThemeNotifier());
 
 class ThemeNotifier extends StateNotifier<AppTheme> {
-  bool isDarkMode = true;
-
   ThemeNotifier() : super(AppTheme());
 
   void toggleDarkMode() {
-    isDarkMode = !isDarkMode;
-    state = state.copyWith(isDarkMode: isDarkMode);
+    state = state.copyWith(isDarkMode: !state.isDarkMode);
   }
 }

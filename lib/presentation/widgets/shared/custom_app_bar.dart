@@ -12,8 +12,7 @@ class CustomAppBar extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final ColorScheme colors = Theme.of(context).colorScheme;
     final TextStyle? titleStyle = Theme.of(context).textTheme.titleMedium;
-    final bool isDarkMode =
-        ref.watch(themeNotifierProvider.notifier).isDarkMode;
+    final bool isDarkMode = ref.watch(themeNotifierProvider).isDarkMode;
 
     return SafeArea(
       bottom: false,
