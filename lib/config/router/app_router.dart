@@ -17,6 +17,12 @@ final GoRouter appRouter = GoRouter(
           builder: (context, state) =>
               MovieScreen(movieId: state.pathParameters['id'] ?? 'no-id'),
         ),
+        GoRoute(
+          path: 'actor/:id',
+          name: ActorScreen.name,
+          builder: (context, state) =>
+              ActorScreen(actorId: state.pathParameters['id'] ?? 'no-id'),
+        ),
       ],
     ),
     GoRoute(path: '/', redirect: (_, __) => '/home/0'),
