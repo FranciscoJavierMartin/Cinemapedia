@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:cinemapedia/domain/entities/actor.dart';
 import 'package:cinemapedia/presentation/providers/providers.dart';
 import 'package:cinemapedia/domain/entities/movie.dart';
+import 'package:go_router/go_router.dart';
 
 class MovieScreen extends ConsumerStatefulWidget {
   static const String name = 'movie-screen';
@@ -278,24 +279,27 @@ class _RecommendationsByMovie extends ConsumerWidget {
               itemCount: recommendationsByMovie[movieId]?.length ?? 0,
               itemBuilder: (context, index) {
                 final Movie movie = recommendationsByMovie[movieId]![index];
-                return Container(
-                  padding: const EdgeInsets.all(8),
-                  width: 135,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(20),
-                        child: Image.network(
-                          movie.posterPath,
-                          height: 180,
-                          width: 135,
-                          fit: BoxFit.cover,
+                return GestureDetector(
+                  onTap: () => context.push('/home/0/movie/${movie.id}'),
+                  child: Container(
+                    padding: const EdgeInsets.all(8),
+                    width: 135,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(20),
+                          child: Image.network(
+                            movie.posterPath,
+                            height: 180,
+                            width: 135,
+                            fit: BoxFit.cover,
+                          ),
                         ),
-                      ),
-                      const SizedBox(height: 5),
-                      Text(movie.title, maxLines: 2)
-                    ],
+                        const SizedBox(height: 5),
+                        Text(movie.title, maxLines: 2)
+                      ],
+                    ),
                   ),
                 );
               },
