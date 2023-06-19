@@ -186,9 +186,7 @@ class _MovieDetails extends StatelessWidget {
           ]),
         ),
         _ActorsByMovie(movieId: movie.id.toString()),
-        _RecommendationsByMovie(
-          movieId: movie.id.toString(),
-        ),
+        _RecommendationsByMovie(movieId: movie.id.toString()),
         const SizedBox(height: 100),
       ],
     );
@@ -206,9 +204,7 @@ class _ActorsByMovie extends ConsumerWidget {
 
     return actorsByMovie[movieId] == null
         ? const Center(
-            child: CircularProgressIndicator(
-              strokeWidth: 2,
-            ),
+            child: CircularProgressIndicator(strokeWidth: 2),
           )
         : SizedBox(
             height: 300,
@@ -263,18 +259,40 @@ class _RecommendationsByMovie extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final recommendationsByMovie = ref.watch(recommendationsByMovieProvider);
 
-    return SizedBox(
-      height: 300,
-      child: ListView.builder(
-        itemCount: recommendationsByMovie[movieId]?.length ?? 0,
-        itemBuilder: (context, index) {
-          final Movie movie = recommendationsByMovie[movieId]![index];
-          return ListTile(
-            title: Text(movie.title),
+    return recommendationsByMovie[movieId] == null
+        ? const Center(
+            child: CircularProgressIndicator(strokeWidth: 2),
+          )
+        : SizedBox(
+            height: 300,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: recommendationsByMovie[movieId]?.length ?? 0,
+              itemBuilder: (context, index) {
+                final Movie movie = recommendationsByMovie[movieId]![index];
+                return Container(
+                  padding: const EdgeInsets.all(8),
+                  width: 135,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: Image.network(
+                          movie.posterPath,
+                          height: 180,
+                          width: 135,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      const SizedBox(height: 5),
+                      Text(movie.title, maxLines: 2)
+                    ],
+                  ),
+                );
+              },
+            ),
           );
-        },
-      ),
-    );
   }
 }
 
