@@ -185,7 +185,15 @@ class _MovieDetails extends StatelessWidget {
                 ))
           ]),
         ),
+        Padding(
+          padding: const EdgeInsets.only(left: 8.0),
+          child: Text('Casting', style: textStyles.titleLarge),
+        ),
         _ActorsByMovie(movieId: movie.id.toString()),
+        Padding(
+          padding: const EdgeInsets.only(left: 8.0),
+          child: Text('If you like, try this', style: textStyles.titleLarge),
+        ),
         _RecommendationsByMovie(movieId: movie.id.toString()),
         const SizedBox(height: 100),
       ],
