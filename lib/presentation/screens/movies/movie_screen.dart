@@ -1,6 +1,6 @@
-import 'package:cinemapedia/domain/entities/actor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:cinemapedia/domain/entities/actor.dart';
 import 'package:cinemapedia/presentation/providers/providers.dart';
 import 'package:cinemapedia/domain/entities/movie.dart';
 
@@ -21,6 +21,9 @@ class MovieScreenState extends ConsumerState<MovieScreen> {
     super.initState();
     ref.read(movieInfoProvider.notifier).loadMovie(widget.movieId);
     ref.read(actorsByMovieProvider.notifier).loadActors(widget.movieId);
+    ref
+        .read(recommendationsByMovieProvider.notifier)
+        .loadRecommendations(widget.movieId);
   }
 
   @override
@@ -183,6 +186,9 @@ class _MovieDetails extends StatelessWidget {
           ]),
         ),
         _ActorsByMovie(movieId: movie.id.toString()),
+        _RecommendationsByMovie(
+          movieId: movie.id.toString(),
+        ),
         const SizedBox(height: 100),
       ],
     );
@@ -245,6 +251,30 @@ class _ActorsByMovie extends ConsumerWidget {
               },
             ),
           );
+  }
+}
+
+class _RecommendationsByMovie extends ConsumerWidget {
+  final String movieId;
+
+  const _RecommendationsByMovie({required this.movieId});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final recommendationsByMovie = ref.watch(recommendationsByMovieProvider);
+
+    return SizedBox(
+      height: 300,
+      child: ListView.builder(
+        itemCount: recommendationsByMovie[movieId]?.length ?? 0,
+        itemBuilder: (context, index) {
+          final Movie movie = recommendationsByMovie[movieId]![index];
+          return ListTile(
+            title: Text(movie.title),
+          );
+        },
+      ),
+    );
   }
 }
 
