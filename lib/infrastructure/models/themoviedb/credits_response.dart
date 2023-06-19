@@ -15,12 +15,6 @@ class CreditsResponse {
         cast: List<Cast>.from(json["cast"].map((x) => Cast.fromJson(x))),
         crew: List<Cast>.from(json["crew"].map((x) => Cast.fromJson(x))),
       );
-
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "cast": List<dynamic>.from(cast.map((x) => x.toJson())),
-        "crew": List<dynamic>.from(crew.map((x) => x.toJson())),
-      };
 }
 
 class Cast {
@@ -72,21 +66,4 @@ class Cast {
         department: json["department"],
         job: json["job"],
       );
-
-  Map<String, dynamic> toJson() => {
-        "adult": adult,
-        "gender": gender,
-        "id": id,
-        "known_for_department": knownForDepartment,
-        "name": name,
-        "original_name": originalName,
-        "popularity": popularity,
-        "profile_path": profilePath,
-        "cast_id": castId,
-        "character": character,
-        "credit_id": creditId,
-        "order": order,
-        "department": department,
-        "job": job,
-      };
 }
