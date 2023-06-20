@@ -1,3 +1,4 @@
+import 'package:cinemapedia/presentation/providers/actors/actor_roles_provider.dart';
 import 'package:cinemapedia/presentation/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -23,6 +24,7 @@ class ActorScreenState extends ConsumerState<ActorScreen> {
   void initState() {
     super.initState();
     ref.read(actorBiographyProvider.notifier).loadActor(widget.actorId);
+    ref.read(rolesByActorProvider.notifier).loadRoles(widget.actorId);
   }
 
   @override
@@ -115,7 +117,6 @@ class _BiographyDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
     final TextTheme textStyles = Theme.of(context).textTheme;
 
     return Column(
@@ -134,8 +135,29 @@ class _BiographyDetails extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 15.0),
           child: Text(biography.biography),
         ),
+        _Roles(biography.id),
         const SizedBox(height: 100)
       ],
     );
+  }
+}
+
+class _Roles extends ConsumerWidget {
+  final int actorId;
+
+  const _Roles(this.actorId);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final rolesByActor = ref.watch(rolesByActorProvider);
+    print(rolesByActor[actorId]?.length);
+    return rolesByActor[actorId] == null
+        ? const Center(
+            child: CircularProgressIndicator(strokeWidth: 2),
+          )
+        : SizedBox(
+            height: 300,
+            child: Text(rolesByActor[actorId]!.length.toString()),
+          );
   }
 }

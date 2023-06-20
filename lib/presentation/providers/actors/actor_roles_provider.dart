@@ -1,6 +1,6 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:cinemapedia/domain/entities/entities.dart';
 import 'package:cinemapedia/presentation/providers/providers.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final rolesByActorProvider =
     StateNotifierProvider<RolesByActorNotifier, Map<String, List<Role>>>((ref) {
