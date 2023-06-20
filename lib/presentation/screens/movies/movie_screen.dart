@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:cinemapedia/domain/entities/actor.dart';
-import 'package:cinemapedia/presentation/providers/providers.dart';
-import 'package:cinemapedia/domain/entities/movie.dart';
 import 'package:go_router/go_router.dart';
+import 'package:cinemapedia/domain/entities/actor.dart';
+import 'package:cinemapedia/domain/entities/movie.dart';
+import 'package:cinemapedia/presentation/providers/providers.dart';
+import 'package:cinemapedia/presentation/widgets/widgets.dart';
 
 class MovieScreen extends ConsumerStatefulWidget {
   static const String name = 'movie-screen';
@@ -108,19 +109,19 @@ class _CustomSliverAppBar extends ConsumerWidget {
                     loadingProgress != null ? const SizedBox() : child,
               ),
             ),
-            const _CustomGradient(
+            const CustomGradient(
               begin: Alignment.topRight,
               end: Alignment.bottomLeft,
               stops: [0.0, 0.2],
               colors: [Colors.black54, Colors.transparent],
             ),
-            const _CustomGradient(
+            const CustomGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               stops: [0.8, 1.0],
               colors: [Colors.transparent, Colors.black87],
             ),
-            const _CustomGradient(
+            const CustomGradient(
               begin: Alignment.topLeft,
               stops: [0.0, 0.3],
               colors: [Colors.black87, Colors.transparent],
@@ -308,35 +309,5 @@ class _RecommendationsByMovie extends ConsumerWidget {
               },
             ),
           );
-  }
-}
-
-class _CustomGradient extends StatelessWidget {
-  final AlignmentGeometry begin;
-  final AlignmentGeometry end;
-  final List<double> stops;
-  final List<Color> colors;
-
-  const _CustomGradient({
-    this.begin = Alignment.centerLeft,
-    this.end = Alignment.centerRight,
-    required this.stops,
-    required this.colors,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox.expand(
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: begin,
-            end: end,
-            stops: stops,
-            colors: colors,
-          ),
-        ),
-      ),
-    );
   }
 }

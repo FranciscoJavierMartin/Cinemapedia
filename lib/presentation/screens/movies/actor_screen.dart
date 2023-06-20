@@ -1,3 +1,4 @@
+import 'package:cinemapedia/presentation/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:cinemapedia/presentation/providers/providers.dart';
@@ -34,14 +35,85 @@ class ActorScreenState extends ConsumerState<ActorScreen> {
             child: CircularProgressIndicator(strokeWidth: 2),
           )
         : Scaffold(
-            body: Center(
-              child: Column(
-                children: [
-                  CircularProgressIndicator(strokeWidth: 2),
-                  Text(actor.name),
-                ],
+            body: CustomScrollView(
+            physics: const ClampingScrollPhysics(),
+            slivers: [
+              _CustomSliverAppBar(actor),
+              SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  childCount: 1,
+                  (context, index) => _BiographyDetails(actor),
+                ),
+              ),
+            ],
+          ));
+  }
+}
+
+class _CustomSliverAppBar extends StatelessWidget {
+  final ActorBiography actorBiography;
+
+  const _CustomSliverAppBar(this.actorBiography);
+
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
+    return SliverAppBar(
+      backgroundColor: Colors.black,
+      expandedHeight: size.height * 0.7,
+      foregroundColor: Colors.white,
+      flexibleSpace: FlexibleSpaceBar(
+        background: Stack(
+          children: [
+            SizedBox.expand(
+              child: Image.network(
+                actorBiography.profilePath,
+                fit: BoxFit.cover,
+                loadingBuilder: (context, child, loadingProgress) =>
+                    loadingProgress != null ? const SizedBox() : child,
               ),
             ),
-          );
+            const CustomGradient(
+              begin: Alignment.topRight,
+              end: Alignment.bottomLeft,
+              stops: [0.0, 0.2],
+              colors: [
+                Colors.black54,
+                Colors.transparent,
+              ],
+            ),
+            const CustomGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              stops: [0.8, 1.0],
+              colors: [
+                Colors.transparent,
+                Colors.black87,
+              ],
+            ),
+            const CustomGradient(
+              begin: Alignment.topLeft,
+              stops: [0.0, 0.3],
+              colors: [
+                Colors.black87,
+                Colors.transparent,
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _BiographyDetails extends StatelessWidget {
+  final ActorBiography biography;
+
+  const _BiographyDetails(this.biography);
+
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
   }
 }
