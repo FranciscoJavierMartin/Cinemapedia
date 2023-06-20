@@ -36,17 +36,18 @@ class ActorScreenState extends ConsumerState<ActorScreen> {
           )
         : Scaffold(
             body: CustomScrollView(
-            physics: const ClampingScrollPhysics(),
-            slivers: [
-              _CustomSliverAppBar(actor),
-              SliverList(
-                delegate: SliverChildBuilderDelegate(
-                  childCount: 1,
-                  (context, index) => _BiographyDetails(actor),
+              physics: const ClampingScrollPhysics(),
+              slivers: [
+                _CustomSliverAppBar(actor),
+                SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                    childCount: 1,
+                    (context, index) => _BiographyDetails(actor),
+                  ),
                 ),
-              ),
-            ],
-          ));
+              ],
+            ),
+          );
   }
 }
 
@@ -114,6 +115,27 @@ class _BiographyDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    final Size size = MediaQuery.of(context).size;
+    final TextTheme textStyles = Theme.of(context).textTheme;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Center(
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Text(
+              biography.name,
+              style: textStyles.titleLarge,
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15.0),
+          child: Text(biography.biography),
+        ),
+        const SizedBox(height: 100)
+      ],
+    );
   }
 }
