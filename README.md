@@ -2,6 +2,6 @@
 
 A new Flutter project.
 
-- Actor page
+- Actor page (pending)
 - New loader
 - Show trailers
