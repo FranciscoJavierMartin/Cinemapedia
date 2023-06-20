@@ -24,7 +24,7 @@ class ActorScreenState extends ConsumerState<ActorScreen> {
   void initState() {
     super.initState();
     ref.read(actorBiographyProvider.notifier).loadActor(widget.actorId);
-    ref.read(rolesByActorProvider.notifier).loadRoles(widget.actorId);
+    // ref.read(rolesByActorProvider.notifier).loadRoles(widget.actorId);
   }
 
   @override
@@ -135,7 +135,7 @@ class _BiographyDetails extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 15.0),
           child: Text(biography.biography),
         ),
-        _Roles(biography.id),
+        // _Roles(biography.id),
         const SizedBox(height: 100)
       ],
     );
