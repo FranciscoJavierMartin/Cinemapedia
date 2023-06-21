@@ -1,7 +1,9 @@
+import 'package:cinemapedia/infrastructure/mappers/video_mapper.dart';
+import 'package:cinemapedia/infrastructure/models/themoviedb/themoviedb_videos_response.dart';
 import 'package:dio/dio.dart';
 import 'package:cinemapedia/config/constants/environment.dart';
 import 'package:cinemapedia/domain/datasources/movies_datasource.dart';
-import 'package:cinemapedia/domain/entities/movie.dart';
+import 'package:cinemapedia/domain/entities/entities.dart';
 import 'package:cinemapedia/infrastructure/mappers/movie_mapper.dart';
 import 'package:cinemapedia/infrastructure/models/themoviedb/movie_details.dart';
 import 'package:cinemapedia/infrastructure/models/themoviedb/themoviedb_response.dart';
@@ -91,5 +93,18 @@ class TheMovieDBDatasource extends MoviesDatasource {
         .toList();
 
     return movies;
+  }
+
+  @override
+  Future<List<Video>> getTrailers(int movieId) async {
+    final response = await dio.get('/movie/$movieId/videos');
+    final theMovieDBVideosResponse =
+        TheMoviedbVideosResponse.fromJson(response.data);
+
+    return theMovieDBVideosResponse.results
+        .where((video) =>
+            video.site == Site.YOU_TUBE && video.type == Type.TRAILER)
+        .map<Video>((video) => VideoMapper.theMovieDBVideoToEntity(video))
+        .toList();
   }
 }

@@ -1,5 +1,6 @@
 import 'package:cinemapedia/domain/datasources/movies_datasource.dart';
 import 'package:cinemapedia/domain/entities/movie.dart';
+import 'package:cinemapedia/domain/entities/video.dart';
 import 'package:cinemapedia/domain/repositories/movies_repository.dart';
 
 class MoviesRepositoryImpl extends MoviesRepository {
@@ -40,5 +41,10 @@ class MoviesRepositoryImpl extends MoviesRepository {
   @override
   Future<List<Movie>> getRecommenedMovies(String id, {int page = 1}) {
     return datasource.getRecommenedMovies(id, page: page);
+  }
+
+  @override
+  Future<List<Video>> getTrailers(int movieId) {
+    return datasource.getTrailers(movieId);
   }
 }

@@ -192,6 +192,7 @@ class _MovieDetails extends StatelessWidget {
           child: Text('Casting', style: textStyles.titleLarge),
         ),
         _ActorsByMovie(movieId: movie.id.toString()),
+        VideoTrailer(movieId: movie.id),
         Padding(
           padding: const EdgeInsets.only(left: 8.0),
           child: Text('If you like, try this', style: textStyles.titleLarge),
