@@ -165,7 +165,7 @@ class _MovieDetails extends StatelessWidget {
                   children: [
                     Text(
                       movie.title,
-                      style: textStyles.titleLarge,
+                      style: textStyles.headlineMedium,
                     ),
                     Text(movie.overview),
                   ],
