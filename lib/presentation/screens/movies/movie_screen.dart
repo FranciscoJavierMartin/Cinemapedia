@@ -193,6 +193,7 @@ class _MovieDetails extends StatelessWidget {
         ),
         _ActorsByMovie(movieId: movie.id.toString()),
         VideoTrailer(movieId: movie.id),
+        const SizedBox(height: 10),
         Padding(
           padding: const EdgeInsets.only(left: 8.0),
           child: Text('If you like, try this', style: textStyles.titleLarge),

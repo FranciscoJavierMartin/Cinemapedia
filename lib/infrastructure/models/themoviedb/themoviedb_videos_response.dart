@@ -27,7 +27,7 @@ class Result {
   final String key;
   final Site site;
   final int size;
-  final Type type;
+  final Type? type;
   final bool official;
   final DateTime publishedAt;
   final String id;
@@ -52,7 +52,7 @@ class Result {
         key: json["key"],
         site: siteValues.map[json["site"]]!,
         size: json["size"],
-        type: typeValues.map[json["type"]]!,
+        type: typeValues.map[json["type"]],
         official: json["official"],
         publishedAt: DateTime.parse(json["published_at"]),
         id: json["id"],
