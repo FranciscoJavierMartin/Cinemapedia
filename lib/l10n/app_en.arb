@@ -1,0 +1,21 @@
+{
+  "nowPlaying": "Now playing",
+  "whatToWatch": "Wath to watch",
+  "upcoming": "Upcoming",
+  "popular": "Popular",
+  "topRated": "Top rated",
+  "home": "Home",
+  "favorites": "Favorites",
+  "searchMovies": "Search movie",
+  "casting": "Casting",
+  "trailer": "Trailer",
+  "recommendations": "If you like, try this",
+  "addMovies": "Try adding some movies",
+  "search": "Search",
+  "loadingMessage1": "Loading...",
+  "loadingMessage2": "Loading movies",
+  "loadingMessage3": "Heating pop corns",
+  "loadingMessage4": "Prepare for the best entertaiment",
+  "loadingMessage5": "Please be patient",
+  "notLoadTrailers": "Cannot load trailers"
+}

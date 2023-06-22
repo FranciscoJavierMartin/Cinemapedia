@@ -3,6 +3,7 @@ import 'package:cinemapedia/presentation/providers/providers.dart';
 import 'package:cinemapedia/presentation/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomeView extends ConsumerStatefulWidget {
   const HomeView({super.key});
@@ -57,7 +58,7 @@ class HomeViewState extends ConsumerState<HomeView>
                     MoviesSlideShow(movies: slideShowMovies),
                     MoviesHorizontalListView(
                       movies: nowPlayingMovies,
-                      title: 'Now playing',
+                      title: AppLocalizations.of(context)!.helloWorld,
                       subtitle: 'What to watch',
                       loadNextPage: () => ref
                           .read(nowPlayingMoviesProvider.notifier)

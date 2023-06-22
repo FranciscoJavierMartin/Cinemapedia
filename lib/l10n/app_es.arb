@@ -1,0 +1,21 @@
+{
+  "nowPlaying": "En cartelera",
+  "whatToWatch": "Que ver",
+  "upcoming": "Proximamente",
+  "popular": "Popular",
+  "topRated": "Mejor valoradas",
+  "home": "Inicio",
+  "favorites": "Favoritas",
+  "searchMovies": "Busqueda de peliculas",
+  "casting": "Reparto",
+  "trailer": "Trailer",
+  "recommendations": "Te puede gustar",
+  "addMovies": "Intenta agregar algunas peliculas",
+  "search": "Buscar",
+  "loadingMessage1": "Cargando...",
+  "loadingMessage2": "Cargando peliculas",
+  "loadingMessage3": "Calentando las palomitas",
+  "loadingMessage4": "Preparate para el mejor entretenimiento",
+  "loadingMessage5": "Por favor, espere",
+  "notLoadTrailers": "No se han podido cargar los trailers"
+}
