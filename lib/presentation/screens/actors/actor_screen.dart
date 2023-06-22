@@ -129,13 +129,20 @@ class _BiographyDetails extends StatelessWidget {
             padding: const EdgeInsets.all(10.0),
             child: Text(
               biography.name,
-              style: textStyles.titleLarge,
+              style: textStyles.headlineLarge,
             ),
           ),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15.0),
           child: Text(biography.biography),
+        ),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(15.0, 10.0, 0, 0),
+          child: Text(
+            'Roles',
+            style: textStyles.headlineMedium,
+          ),
         ),
         _Roles(biography.id),
         const SizedBox(height: 100)
