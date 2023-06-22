@@ -35,7 +35,6 @@ class ActorMovieDbDatasource extends ActorsDatasource {
 
   @override
   Future<List<Role>> getRolesByActor(String actorId) async {
-    // TODO: Fix this request
     final response = await dio.get('/person/$actorId/movie_credits');
     final rolesResponse = RolesResponse.fromJson(response.data);
     return rolesResponse.cast

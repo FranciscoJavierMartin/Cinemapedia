@@ -1,9 +1,11 @@
+import 'package:cinemapedia/domain/entities/entities.dart';
 import 'package:cinemapedia/presentation/providers/actors/actor_roles_provider.dart';
 import 'package:cinemapedia/presentation/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:cinemapedia/presentation/providers/providers.dart';
 import 'package:cinemapedia/domain/entities/actor_biography.dart';
+import 'package:go_router/go_router.dart';
 
 class ActorScreen extends ConsumerStatefulWidget {
   static const String name = 'actor-screen';
@@ -135,12 +137,18 @@ class _BiographyDetails extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 15.0),
           child: Text(biography.biography),
         ),
-        // _Roles(biography.id),
+        _Roles(biography.id),
         const SizedBox(height: 100)
       ],
     );
   }
 }
+
+final FutureProviderFamily<List<Role>, String> rolesProvider =
+    FutureProvider.family((ref, String actorId) {
+  final movieRepository = ref.watch(actorRepositoryProvider);
+  return movieRepository.getRolesByActor(actorId);
+});
 
 class _Roles extends ConsumerWidget {
   final int actorId;
@@ -149,16 +157,68 @@ class _Roles extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // TODO: Use trailer approach to load roles "when"
-    final rolesByActor = ref.watch(rolesByActorProvider);
-    print(rolesByActor[actorId]?.length);
-    return rolesByActor[actorId] == null
-        ? const Center(
-            child: CircularProgressIndicator(strokeWidth: 2),
-          )
-        : SizedBox(
-            height: 300,
-            child: Text(rolesByActor[actorId]!.length.toString()),
-          );
+    final rolesByActor = ref.watch(rolesProvider(actorId.toString()));
+
+    return rolesByActor.when(
+      error: (_, __) => Container(),
+      loading: () => const Center(
+        child: CircularProgressIndicator(strokeWidth: 2),
+      ),
+      data: (roles) => Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: SizedBox(
+          height: 300,
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: roles.length,
+            itemBuilder: (context, index) {
+              final Role role = roles[index];
+              return Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: GestureDetector(
+                  onTap: () => context.push('/home/0/movie/${role.id}'),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: Image.network(
+                          role.posterPath,
+                          height: 180,
+                          width: 135,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      const SizedBox(height: 5),
+                      SizedBox(
+                        width: 135,
+                        child: Column(
+                          children: [
+                            Text(
+                              role.title,
+                              maxLines: 2,
+                              textAlign: TextAlign.center,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            Text(
+                              role.character,
+                              maxLines: 2,
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  overflow: TextOverflow.ellipsis),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
+      ),
+    );
   }
 }
