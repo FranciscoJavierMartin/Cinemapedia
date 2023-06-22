@@ -1,11 +1,10 @@
-import 'package:cinemapedia/domain/entities/entities.dart';
-import 'package:cinemapedia/presentation/providers/actors/actor_roles_provider.dart';
-import 'package:cinemapedia/presentation/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:cinemapedia/presentation/providers/providers.dart';
-import 'package:cinemapedia/domain/entities/actor_biography.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:cinemapedia/domain/entities/entities.dart';
+import 'package:cinemapedia/presentation/widgets/widgets.dart';
+import 'package:cinemapedia/presentation/providers/providers.dart';
 
 class ActorScreen extends ConsumerStatefulWidget {
   static const String name = 'actor-screen';
@@ -140,7 +139,7 @@ class _BiographyDetails extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.fromLTRB(15.0, 10.0, 0, 0),
           child: Text(
-            'Roles',
+            AppLocalizations.of(context)!.roles,
             style: textStyles.headlineMedium,
           ),
         ),

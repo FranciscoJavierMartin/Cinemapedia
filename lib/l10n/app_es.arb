@@ -17,5 +17,6 @@
   "loadingMessage3": "Calentando las palomitas",
   "loadingMessage4": "Preparate para el mejor entretenimiento",
   "loadingMessage5": "Por favor, espere",
-  "notLoadTrailers": "No se han podido cargar los trailers"
+  "notLoadTrailers": "No se han podido cargar los trailers",
+  "roles": "Roles"
 }

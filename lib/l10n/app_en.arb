@@ -17,5 +17,6 @@
   "loadingMessage3": "Heating pop corns",
   "loadingMessage4": "Prepare for the best entertaiment",
   "loadingMessage5": "Please be patient",
-  "notLoadTrailers": "Cannot load trailers"
+  "notLoadTrailers": "Cannot load trailers",
+  "roles": "Roles"
 }
