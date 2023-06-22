@@ -1,4 +1,5 @@
 import 'package:cinemapedia/presentation/screens/screens.dart';
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 final GoRouter appRouter = GoRouter(
@@ -28,3 +29,11 @@ final GoRouter appRouter = GoRouter(
     GoRoute(path: '/', redirect: (_, __) => '/home/0'),
   ],
 );
+
+void goToMoviePage(BuildContext context, int movieId) {
+  context.push('/home/0/movie/$movieId');
+}
+
+void goToActorPage(BuildContext context, int actorId) {
+  context.push('/home/0/actor/$actorId');
+}

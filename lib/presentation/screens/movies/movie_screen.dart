@@ -1,3 +1,4 @@
+import 'package:cinemapedia/config/router/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -229,7 +230,7 @@ class _ActorsByMovie extends ConsumerWidget {
                 final Actor actor = actorsByMovie[movieId]![index];
 
                 return GestureDetector(
-                  onTap: () => context.push('/home/0/actor/${actor.id}'),
+                  onTap: () => goToActorPage(context, actor.id),
                   child: Container(
                     padding: const EdgeInsets.all(8),
                     width: 135,
@@ -288,7 +289,7 @@ class _RecommendationsByMovie extends ConsumerWidget {
               itemBuilder: (context, index) {
                 final Movie movie = recommendationsByMovie[movieId]![index];
                 return GestureDetector(
-                  onTap: () => context.push('/home/0/movie/${movie.id}'),
+                  onTap: () => goToMoviePage(context, movie.id),
                   child: Container(
                     padding: const EdgeInsets.all(8),
                     width: 135,

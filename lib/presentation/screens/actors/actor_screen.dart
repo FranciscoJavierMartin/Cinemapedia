@@ -1,6 +1,6 @@
+import 'package:cinemapedia/config/router/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:cinemapedia/domain/entities/entities.dart';
 import 'package:cinemapedia/presentation/widgets/widgets.dart';
@@ -182,7 +182,7 @@ class _Roles extends ConsumerWidget {
               return Padding(
                 padding: const EdgeInsets.all(5.0),
                 child: GestureDetector(
-                  onTap: () => context.push('/home/0/movie/${role.id}'),
+                  onTap: () => goToMoviePage(context, role.id),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
