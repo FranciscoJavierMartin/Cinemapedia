@@ -12,7 +12,7 @@ class ActorBiographyResponse {
   final String name;
   final String placeOfBirth;
   final double popularity;
-  final String profilePath;
+  final String? profilePath;
 
   ActorBiographyResponse({
     required this.adult,

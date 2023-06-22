@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:cinemapedia/presentation/providers/providers.dart';
 import 'package:cinemapedia/domain/entities/entities.dart';
 
@@ -20,7 +21,8 @@ class VideoTrailer extends ConsumerWidget {
 
     return trailers.when(
       data: (videos) => _TrailerList(videos),
-      error: (_, __) => const Center(child: Text('Cannot load trailers')),
+      error: (_, __) =>
+          Center(child: Text(AppLocalizations.of(context)!.notLoadTrailers)),
       loading: () => const Center(
         child: CircularProgressIndicator(strokeWidth: 2),
       ),
@@ -46,7 +48,7 @@ class _TrailerList extends StatelessWidget {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
                 child: Text(
-                  'Trailer',
+                  AppLocalizations.of(context)!.trailer,
                   style: textStyles.titleLarge,
                 ),
               ),

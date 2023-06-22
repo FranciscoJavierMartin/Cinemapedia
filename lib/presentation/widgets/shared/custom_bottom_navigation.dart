@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CustomBottomNavigation extends StatelessWidget {
   final int currentIndex;
@@ -12,14 +13,14 @@ class CustomBottomNavigation extends StatelessWidget {
       currentIndex: currentIndex,
       elevation: 0,
       onTap: (index) => context.go('/home/$index'),
-      items: const [
+      items: [
         BottomNavigationBarItem(
-          icon: Icon(Icons.home_max),
-          label: 'Home',
+          icon: const Icon(Icons.home_max),
+          label: AppLocalizations.of(context)!.home,
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.favorite_outline),
-          label: 'Favorites',
+          icon: const Icon(Icons.favorite_outline),
+          label: AppLocalizations.of(context)!.favorites,
         ),
       ],
     );

@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class FullScreenLoader extends StatelessWidget {
   const FullScreenLoader({super.key});
 
-  Stream<String> _geLoadingMessages() {
+  Stream<String> _geLoadingMessages(BuildContext context) {
     final messages = <String>[
-      'Loading movies',
-      'Heating pop corns',
-      'Prepare for the best entertaiment',
-      'Please be patient',
+      AppLocalizations.of(context)!.loadingMessage2,
+      AppLocalizations.of(context)!.loadingMessage3,
+      AppLocalizations.of(context)!.loadingMessage4,
+      AppLocalizations.of(context)!.loadingMessage5,
     ];
 
     return Stream.periodic(const Duration(seconds: 5), (step) {
@@ -22,7 +23,7 @@ class FullScreenLoader extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Text('Loading...'),
+          Text(AppLocalizations.of(context)!.home),
           const SizedBox(
             height: 10,
           ),
@@ -33,10 +34,10 @@ class FullScreenLoader extends StatelessWidget {
             height: 10,
           ),
           StreamBuilder(
-            stream: _geLoadingMessages(),
+            stream: _geLoadingMessages(context),
             builder: (context, snapshot) => snapshot.hasData
                 ? Text(snapshot.data!)
-                : const Text('Loading...'),
+                : Text(AppLocalizations.of(context)!.loadingMessage1),
           ),
         ],
       ),

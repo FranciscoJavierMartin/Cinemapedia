@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:cinemapedia/domain/entities/actor.dart';
 import 'package:cinemapedia/domain/entities/movie.dart';
 import 'package:cinemapedia/presentation/providers/providers.dart';
@@ -189,7 +190,8 @@ class _MovieDetails extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.only(left: 8.0),
-          child: Text('Casting', style: textStyles.titleLarge),
+          child: Text(AppLocalizations.of(context)!.casting,
+              style: textStyles.titleLarge),
         ),
         _ActorsByMovie(movieId: movie.id.toString()),
         VideoTrailer(movieId: movie.id),

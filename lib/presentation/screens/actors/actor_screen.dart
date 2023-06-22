@@ -149,6 +149,7 @@ class _Roles extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // TODO: Use trailer approach to load roles "when"
     final rolesByActor = ref.watch(rolesByActorProvider);
     print(rolesByActor[actorId]?.length);
     return rolesByActor[actorId] == null

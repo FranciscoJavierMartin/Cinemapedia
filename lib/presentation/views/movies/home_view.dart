@@ -58,29 +58,29 @@ class HomeViewState extends ConsumerState<HomeView>
                     MoviesSlideShow(movies: slideShowMovies),
                     MoviesHorizontalListView(
                       movies: nowPlayingMovies,
-                      title: AppLocalizations.of(context)!.helloWorld,
-                      subtitle: 'What to watch',
+                      title: AppLocalizations.of(context)!.nowPlaying,
+                      subtitle: AppLocalizations.of(context)!.whatToWatch,
                       loadNextPage: () => ref
                           .read(nowPlayingMoviesProvider.notifier)
                           .loadNextPage(),
                     ),
                     MoviesHorizontalListView(
                       movies: upcomingMovies,
-                      title: 'Upcoming',
+                      title: AppLocalizations.of(context)!.upcoming,
                       loadNextPage: () => ref
                           .read(upcomingMoviesProvider.notifier)
                           .loadNextPage(),
                     ),
                     MoviesHorizontalListView(
                       movies: popularMovies,
-                      title: 'Popular',
+                      title: AppLocalizations.of(context)!.popular,
                       loadNextPage: () => ref
                           .read(popularMoviesProvider.notifier)
                           .loadNextPage(),
                     ),
                     MoviesHorizontalListView(
                       movies: topRatesMovies,
-                      title: 'Top rated',
+                      title: AppLocalizations.of(context)!.topRated,
                       loadNextPage: () => ref
                           .read(topRatesMoviesProvider.notifier)
                           .loadNextPage(),
