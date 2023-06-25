@@ -22,11 +22,11 @@ class MainApp extends ConsumerWidget {
     return MaterialApp.router(
       routerConfig: appRouter,
       debugShowCheckedModeBanner: false,
-      localizationsDelegates: [
+      localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate
       ],
-      supportedLocales: [Locale('en'), Locale('es')],
+      supportedLocales: const [Locale('en'), Locale('es')],
       theme: AppTheme(
         isDarkMode: isDarkMode,
       ).getTheme(),
