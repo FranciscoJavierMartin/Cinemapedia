@@ -239,11 +239,15 @@ class _ActorsByMovie extends ConsumerWidget {
                       children: [
                         ClipRRect(
                           borderRadius: BorderRadius.circular(20),
-                          child: Image.network(
-                            actor.profilePath,
+                          child: FadeInImage(
                             height: 180,
                             width: 135,
                             fit: BoxFit.cover,
+                            placeholder: const AssetImage(
+                                'assets/images/bottle-loader.gif'),
+                            image: NetworkImage(
+                              actor.profilePath,
+                            ),
                           ),
                         ),
                         const SizedBox(

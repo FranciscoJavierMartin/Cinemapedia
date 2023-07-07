@@ -1,5 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:card_swiper/card_swiper.dart';
+import 'package:cinemapedia/config/router/app_router.dart';
 import 'package:cinemapedia/domain/entities/movie.dart';
 import 'package:flutter/material.dart';
 
@@ -56,16 +57,13 @@ class _Slide extends StatelessWidget {
         decoration: decoration,
         child: ClipRRect(
           borderRadius: BorderRadius.circular(20),
-          child: Image.network(
-            movie.backdropPath,
-            fit: BoxFit.cover,
-            loadingBuilder: (context, child, loadingProgress) {
-              return loadingProgress != null
-                  ? const DecoratedBox(
-                      decoration: BoxDecoration(color: Colors.black12),
-                    )
-                  : FadeIn(child: child);
-            },
+          child: GestureDetector(
+            onTap: () => goToMoviePage(context, movie.id),
+            child: FadeInImage(
+              fit: BoxFit.cover,
+              placeholder: const AssetImage('assets/images/bottle-loader.gif'),
+              image: NetworkImage(movie.backdropPath),
+            ),
           ),
         ),
       ),
